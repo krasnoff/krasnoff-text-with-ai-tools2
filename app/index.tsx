@@ -22,12 +22,17 @@ export default function Index() {
               yAxisLabelWidth={0}
               data={lineData}
               hideDataPoints
-              thickness={5}
+              thickness={2}
+              areaChart
+              startFillColor={Colors.black}
+              endFillColor={Colors.black}
+              startOpacity={1}
+              endOpacity={1}
               hideRules
               hideYAxisText
+              yAxisThickness={0}
+              xAxisThickness={0}
               yAxisColor={Colors.secondary}
-              showVerticalLines
-              verticalLinesColor="rgba(14,164,164,0.5)"
               xAxisColor={Colors.secondary}
               color={Colors.secondary}
               curved

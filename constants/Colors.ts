@@ -40,4 +40,6 @@ export const Colors = {
   positive: "#00ced1",
   negative: "#ff5252",
   neutral: "#a68b7c",
+
+  black: "#000000",
 } as const;
