@@ -1,9 +1,12 @@
 import { Colors } from "@/constants/Colors";
 import { FontFamily } from "@/constants/Typography";
 import useFonts from "@/hooks/useFonts";
-import { Stack } from "expo-router";
+import { DrawerToggleButton } from "@react-navigation/drawer";
+import { Drawer } from "expo-router/drawer";
+import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { ActivityIndicator, StyleSheet, Text, TextInput, View } from "react-native";
+import "react-native-gesture-handler";
 
 const styles = StyleSheet.create({
   container: {
@@ -45,19 +48,43 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: Colors.background,
-        },
-        headerTintColor: Colors.primaryContainer,
-        headerTitleStyle: {
-          color: Colors.primaryContainer,
-        },
-        contentStyle: {
-          backgroundColor: Colors.background,
-        },
-      }}
-    />
+    <>
+      <StatusBar style="light" backgroundColor={Colors.background} />
+      <Drawer
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: Colors.background,
+          },
+          headerTintColor: Colors.primaryContainer,
+          headerTitleStyle: {
+            color: Colors.primaryContainer,
+          },
+          sceneStyle: {
+            backgroundColor: Colors.background,
+          },
+          drawerStyle: {
+            backgroundColor: Colors.background,
+          },
+          drawerActiveTintColor: Colors.primary,
+          drawerInactiveTintColor: Colors.onSurface,
+          headerLeft: () => <DrawerToggleButton tintColor={Colors.primaryContainer} />,
+        }}
+      >
+        <Drawer.Screen
+          name="index"
+          options={{
+            drawerLabel: "Home",
+            title: "Home",
+          }}
+        />
+        <Drawer.Screen
+          name="second"
+          options={{
+            drawerLabel: "Second Page",
+            title: "Second Page",
+          }}
+        />
+      </Drawer>
+    </>
   );
 }
