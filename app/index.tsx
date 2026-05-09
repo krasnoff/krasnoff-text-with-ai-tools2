@@ -1,3 +1,4 @@
+import ComponentWrapper from "@/components/ComponentWrapper";
 import { Colors } from "@/constants/Colors";
 import { Layout } from "@/constants/Layout";
 import { FontFamily } from "@/constants/Typography";
@@ -7,13 +8,21 @@ import { LineChart } from "react-native-gifted-charts";
 
 export default function Index() {
   const { width: screenWidth } = useWindowDimensions();
-  const horizontalMargin = Layout.marginMobile;
-  const chartWidth = screenWidth - horizontalMargin * 2;
+  const wrapperMarginHorizontal = Layout.marginMobile;
+  const wrapperPaddingHorizontal = Layout.marginMobile;
+  const wrapperBorderWidth = 1;
+  const chartWidth = Math.max(
+    0,
+    screenWidth -
+      wrapperMarginHorizontal * 2 -
+      wrapperPaddingHorizontal * 2 -
+      wrapperBorderWidth * 2,
+  );
   const lineData = [{value: 0},{value: 20},{value: 18},{value: 40},{value: 36},{value: 60},{value: 54},{value: 85}]
 
   return (
      <View style={styles.container}>
-       <View style={[styles.content, { backgroundColor: Colors.background }]}>
+      <ComponentWrapper>
           <LineChart
               width={chartWidth}
               adjustToWidth
@@ -38,7 +47,7 @@ export default function Index() {
               curved
               isAnimated
           />
-      </View>
+      </ComponentWrapper>
       <Text style={styles.defaultText}>Edit app/index.tsx to edit this screen.</Text>
     </View>
   );
@@ -50,10 +59,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "stretch",
     backgroundColor: Colors.background,
-  },
-  content: {
-    width: "100%",
-    paddingHorizontal: Layout.marginMobile,
   },
   defaultText: {
     fontFamily: FontFamily.bodyRegular,

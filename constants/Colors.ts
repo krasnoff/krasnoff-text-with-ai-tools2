@@ -31,6 +31,7 @@ export const Colors = {
 
   outline: "#a68b7c",
   outlineVariant: "#574235",
+  outlineVariantLow: "#282828",
 
   error: "#ffb4ab",
   errorContainer: "#93000a",
