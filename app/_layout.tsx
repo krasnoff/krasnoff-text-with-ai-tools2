@@ -5,7 +5,7 @@ import { DrawerToggleButton } from "@react-navigation/drawer";
 import { Drawer } from "expo-router/drawer";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
-import { ActivityIndicator, StyleSheet, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, I18nManager, StyleSheet, Text, TextInput, View } from "react-native";
 import "react-native-gesture-handler";
 
 const styles = StyleSheet.create({
@@ -19,6 +19,12 @@ const styles = StyleSheet.create({
 
 export default function RootLayout() {
   const fontsLoaded = useFonts();
+
+  useEffect(() => {
+    I18nManager.allowRTL(false);
+    I18nManager.forceRTL(false);
+    I18nManager.swapLeftAndRightInRTL(false);
+  }, []);
 
   useEffect(() => {
     if (!fontsLoaded) return;

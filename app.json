@@ -12,6 +12,7 @@
       "supportsTablet": true
     },
     "android": {
+      "supportsRTL": false,
       "package": "com.krasnoff.testwithaitools",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
