@@ -15,6 +15,7 @@ export const Colors = {
   onTertiaryContainer: "#71000e",
 
   background: "#131313",
+  backgroundDimOrange: "#2F2218",
   surface: "#131313",
   surfaceDim: "#131313",
   surfaceBright: "#393939",
@@ -24,6 +25,7 @@ export const Colors = {
   surfaceContainerHigh: "#2a2a2a",
   surfaceContainerHighest: "#353534",
   surfaceVariant: "#353534",
+  surfaceUltraBright: "#757575",
 
   onSurface: "#e5e2e1",
   onSurfaceVariant: "#dec1af",

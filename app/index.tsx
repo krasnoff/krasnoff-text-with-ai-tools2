@@ -1,12 +1,17 @@
 import ComponentWrapper from "@/components/ComponentWrapper";
+import PushButton from "@/components/PushButton";
 import { Colors } from "@/constants/Colors";
 import { Layout } from "@/constants/Layout";
 import { FontFamily } from "@/constants/Typography";
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import { LineChart } from "react-native-gifted-charts";
 
+const TIMEFRAMES = ["1D", "1W", "1M"] as const;
+type Timeframe = (typeof TIMEFRAMES)[number];
+
 export default function Index() {
+  const [activeTimeframe, setActiveTimeframe] = useState<Timeframe>("1D");
   const { width: screenWidth } = useWindowDimensions();
   const wrapperMarginHorizontal = Layout.marginMobile;
   const wrapperPaddingHorizontal = Layout.marginMobile;
@@ -22,7 +27,18 @@ export default function Index() {
 
   return (
      <View style={styles.container}>
-      <ComponentWrapper>
+      <ComponentWrapper style={styles.chartCard}>
+        <View style={styles.pushButtonRow}>
+              {TIMEFRAMES.map((timeframe) => (
+                <PushButton
+                  key={timeframe}
+                  label={timeframe}
+                  active={activeTimeframe === timeframe}
+                  onPress={() => setActiveTimeframe(timeframe)}
+                  accessibilityLabel={`Select ${timeframe} timeframe`}
+                />
+              ))}
+        </View>
           <LineChart
               width={chartWidth}
               adjustToWidth
@@ -56,7 +72,7 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "stretch",
     backgroundColor: Colors.background,
   },
@@ -64,5 +80,16 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.bodyRegular,
     color: Colors.onSurface,
     textAlign: "center",
+  },
+  chartCard: {
+    flexDirection: "column",
+    alignItems: "stretch",
+    justifyContent: "flex-start",
+    gap: 12,
+  },
+  pushButtonRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
   },
 });
