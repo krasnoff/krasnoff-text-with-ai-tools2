@@ -2,7 +2,7 @@ import ComponentWrapper from "@/components/ComponentWrapper";
 import PushButton from "@/components/PushButton";
 import { Colors } from "@/constants/Colors";
 import { Layout } from "@/constants/Layout";
-import { FontFamily } from "@/constants/Typography";
+import { FontFamily, Typography } from "@/constants/Typography";
 import React, { useState } from "react";
 import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import { LineChart } from "react-native-gifted-charts";
@@ -27,6 +27,8 @@ export default function Index() {
 
   return (
      <View style={styles.container}>
+      <Text style={styles.marketOverviewTitle}>Stocks in israel</Text>
+      <Text style={styles.marketOverviewSubtitle}>Real time market overview.</Text>
       <ComponentWrapper style={styles.chartCard}>
         <View style={styles.pushButtonRow}>
               {TIMEFRAMES.map((timeframe) => (
@@ -80,6 +82,19 @@ const styles = StyleSheet.create({
     fontFamily: FontFamily.bodyRegular,
     color: Colors.onSurface,
     textAlign: "center",
+  },
+  marketOverviewTitle: {
+    ...Typography.headlineMedium,
+    color: Colors.onSurface,
+    marginHorizontal: Layout.marginMobile,
+    marginTop: Layout.marginMobile,
+    marginBottom: 4,
+  },
+  marketOverviewSubtitle: {
+    ...Typography.bodyMedium,
+    color: Colors.surfaceUltraBright,
+    marginHorizontal: Layout.marginMobile,
+    marginBottom: Layout.marginTablet,
   },
   chartCard: {
     flexDirection: "column",
