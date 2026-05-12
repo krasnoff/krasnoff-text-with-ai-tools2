@@ -14,6 +14,13 @@ export const Typography = {
     fontSize: 16,
     lineHeight: 24,
   },
+  labelMedium: {
+    fontFamily: FontFamily.bodyMedium,
+    fontSize: 14,
+    lineHeight: 16,
+    letterSpacing: 0.6,
+    textTransform: "uppercase" as const,
+  },
   labelSmall: {
     fontFamily: FontFamily.bodyMedium,
     fontSize: 12,
