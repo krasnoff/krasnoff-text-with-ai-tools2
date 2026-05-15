@@ -1,3 +1,4 @@
+import { ArrowUpIcon } from "@/assets/svg/arrow-up";
 import ComponentWrapper from "@/components/ComponentWrapper";
 import PushButton from "@/components/PushButton";
 import { Colors } from "@/constants/Colors";
@@ -7,6 +8,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import React, { useState } from "react";
 import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import { Dropdown } from 'react-native-element-dropdown';
+import { ScrollView } from "react-native-gesture-handler";
 import { LineChart } from "react-native-gifted-charts";
 
 export default function Index() {
@@ -183,6 +185,19 @@ export default function Index() {
     { label: "תל-דיב", value: 166 }
   ];
 
+  const israeliStocks = [
+    { name: "Elbit Systems", currentPrice: 226420.0, change: 0.94 },
+    { name: "Azrieli", currentPrice: 48060.0, change: -1.05 },
+    { name: "Israel Discount Bank", currentPrice: 3069.0, change: -3.79 },
+    { name: "Harel", currentPrice: 19460.0, change: -1.67 },
+    { name: "FIBI Holdings", currentPrice: 24300.0, change: -2.21 },
+    { name: "Bezeq The Israel", currentPrice: 776.6, change: -1.61 },
+    { name: "Newmed Energy Lp", currentPrice: 1780.0, change: 0 },
+    { name: "Delek", currentPrice: 96000.0, change: 2.62 },
+    { name: "Big Shopping", currentPrice: 78240.0, change: -1.73 },
+    { name: "Clal Insurance", currentPrice: 28480.0, change: 2.08 }
+  ];
+
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
 
@@ -190,14 +205,21 @@ export default function Index() {
   type Timeframe = (typeof TIMEFRAMES)[number];
 
   return (
-     <View style={styles.container}>
+     <ScrollView
+       style={styles.scrollView}
+       contentContainerStyle={styles.container}
+     >
       <Text style={styles.marketOverviewTitle}>Stocks in israel</Text>
       <Text style={styles.marketOverviewSubtitle}>Real time market overview.</Text>
       <ComponentWrapper style={styles.chartCard}>
         <View style={styles.chartHeaderRow}>
           <View style={styles.chartIndexInfo}>
             <Text style={styles.chartIndexLabel}>TA-35 Index</Text>
-            <Text style={styles.chartIndexValue}>4,4170.80</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, flexWrap: 'nowrap' }}>
+              <Text style={styles.chartIndexValue} numberOfLines={1}>4,4170.80</Text>
+              <ArrowUpIcon size={16} color={Colors.secondary} />
+              <Text style={styles.chartIndexValuePercent} numberOfLines={1}>+1.06%</Text>
+            </View>
           </View>
           <View style={styles.pushButtonRow}>
             {TIMEFRAMES.map((timeframe) => (
@@ -266,16 +288,55 @@ export default function Index() {
           )}
         />
 
+      <ComponentWrapper style={styles.stockListHeaderCard}>
+        <View style={styles.stockLineRow}>
+          <Text style={[styles.stockHeaderCell, styles.stockNameCell]} numberOfLines={1}>
+            Stock Name
+          </Text>
+          <Text style={[styles.stockHeaderCell, styles.stockMiddleCell]} numberOfLines={1}>
+            Current Price
+          </Text>
+          <Text style={styles.stockHeaderCell} numberOfLines={1}>
+            Change
+          </Text>
+        </View>
+      </ComponentWrapper>
+
+      {israeliStocks.map((stock) => (
+        <ComponentWrapper key={stock.name} style={styles.stockLineCard}>
+          <View style={styles.stockLineRow}>
+            <Text style={[styles.stockLineCell, styles.stockNameCell]} numberOfLines={1}>
+              {stock.name}
+            </Text>
+            <Text style={[styles.stockLineCell, styles.stockMiddleCell]} numberOfLines={1}>
+              ₪{stock.currentPrice.toLocaleString("en-US")}
+            </Text>
+            <Text
+              style={[
+                styles.stockLineCell,
+                styles.stockValueCell,
+                stock.change >= 0 ? styles.stockChangePositive : styles.stockChangeNegative,
+              ]}
+              numberOfLines={1}
+            >
+              {stock.change >= 0 ? "+" : ""}
+              {stock.change.toFixed(2)}%
+            </Text>
+          </View>
+        </ComponentWrapper>
+      ))}
       
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: "flex-start",
     alignItems: "stretch",
+  },
+  scrollView: {
+    flex: 1,
     backgroundColor: Colors.background,
   },
   defaultText: {
@@ -310,6 +371,7 @@ const styles = StyleSheet.create({
   },
   chartIndexInfo: {
     gap: 2,
+    flex: 1,
   },
   chartIndexLabel: {
     ...Typography.dataLarge,
@@ -320,6 +382,56 @@ const styles = StyleSheet.create({
   chartIndexValue: {
     ...Typography.labelMedium,
     color: Colors.onSurface,
+  },
+  chartIndexValuePercent: {
+    ...Typography.labelSmall,
+    color: Colors.secondary,
+  },
+  stockLineCard: {
+    flexDirection: "column",
+    alignItems: "stretch",
+    justifyContent: "center",
+    marginTop: Layout.marginMobile,
+  },
+  stockListHeaderCard: {
+    flexDirection: "column",
+    alignItems: "stretch",
+    justifyContent: "center",
+    marginTop: Layout.marginMobile,
+    marginBottom: 0,
+  },
+  stockLineRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 12,
+  },
+  stockLineCell: {
+    ...Typography.labelMedium,
+    color: Colors.onSurface,
+    flexShrink: 1,
+  },
+  stockHeaderCell: {
+    ...Typography.labelSmall,
+    color: Colors.surfaceUltraBright,
+    flexShrink: 1,
+  },
+  stockNameCell: {
+    flex: 1,
+  },
+  stockMiddleCell: {
+    textAlign: "right",
+  },
+  stockValueCell: {
+    width: 80,
+    minWidth: 80,
+    textAlign: "right",
+  },
+  stockChangePositive: {
+    color: Colors.secondary,
+  },
+  stockChangeNegative: {
+    color: "#c94f4f",
   },
   pushButtonRow: {
     flexDirection: "row",
