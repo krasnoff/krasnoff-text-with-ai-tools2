@@ -3,18 +3,11 @@ import PushButton from "@/components/PushButton";
 import { Colors } from "@/constants/Colors";
 import { Layout } from "@/constants/Layout";
 import { FontFamily, Typography } from "@/constants/Typography";
+import AntDesign from '@expo/vector-icons/AntDesign';
 import React, { useState } from "react";
 import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import { Dropdown } from 'react-native-element-dropdown';
 import { LineChart } from "react-native-gifted-charts";
-
-const TIMEFRAMES = ["1D", "1W", "1M"] as const;
-type Timeframe = (typeof TIMEFRAMES)[number];
-
-const TIMEFRAME_INDEX: Record<Timeframe, number> = {
-  "1D": 0,
-  "1W": 1,
-  "1M": 2,
-};
 
 export default function Index() {
   const [activeTimeframe, setActiveTimeframe] = useState<Timeframe>("1D");
@@ -37,7 +30,164 @@ export default function Index() {
     // 1M
     [{ value: 5 }, { value: 12 }, { value: 20 }, { value: 28 }, { value: 35 }, { value: 50 }, { value: 62 }, { value: 78 }],
   ];
+  const TIMEFRAME_INDEX: Record<Timeframe, number> = {
+    "1D": 0,
+    "1W": 1,
+    "1M": 2,
+  };
+  
   const lineData = lineDataByTimeframe[TIMEFRAME_INDEX[activeTimeframe]];
+
+  const data = [
+    { label: "All-Bond כללי", value: 601 },
+    { label: "All-Bond צמודות", value: 604 },
+    { label: "All-Bond ריבית משתנה", value: 716 },
+    { label: "All-Bond שקלי", value: 740 },
+    { label: "VTA35", value: 598 },
+    { label: "אג\"ח לא-ממשלתיות", value: 603 },
+    { label: "אג\"ח להמרה כללי", value: 4 },
+    { label: "אג\"ח מגובה פקדונות", value: 764 },
+    { label: "אופציות כללי", value: 3 },
+    { label: "בונד קצר עד שנה", value: 751 },
+    { label: "בנקים מניות והמירים", value: 13 },
+    { label: "חברות השקעה ואחזקות", value: 117 },
+    { label: "חברות תעשיה", value: 73 },
+    { label: "חיסכון לא צמודות דירוג כפול", value: 759 },
+    { label: "חיפושי גז ונפט מניות והמ'", value: 127 },
+    { label: "יתר מניות והמירים", value: 161 },
+    { label: "כימיה גומי ופלסטיק", value: 97 },
+    { label: "מדד יתר מניות", value: 162 },
+    { label: "מדדיות לא-ממשלתיות", value: 606 },
+    { label: "ממשלתי צמוד", value: 696 },
+    { label: "מניות והמירים כללי", value: 1 },
+    { label: "מניות כללי", value: 2 },
+    { label: "מסחר ושירותים מניות והמירים", value: 41 },
+    { label: "נדל\"ן ובינוי מניות והמירים", value: 61 },
+    { label: "פיזור מנפיקים AAתל בונד", value: 767 },
+    { label: "פיזור מנפיקים Aתל בונד", value: 766 },
+    { label: "ת\"א - מזון", value: 212 },
+    { label: "ת\"א- 35משקל שווה", value: 211 },
+    { label: "ת\"א- 50ריאלי", value: 198 },
+    { label: "ת\"א 90 ובנקים", value: 196 },
+    { label: "ת\"א All-Share", value: 168 },
+    { label: "ת\"א- EW 90מודל רווחיות", value: 202 },
+    { label: "ת\"א SME60", value: 147 },
+    { label: "ת\"א- SME60EWמודל רווחיות", value: 203 },
+    { label: "ת\"א ביטוח", value: 33 },
+    { label: "ת\"א ביטחוניות", value: 207 },
+    { label: "ת\"א בנקים- 5משקל שווה", value: 204 },
+    { label: "ת\"א בנקים ביטוח משקל שווה", value: 205 },
+    { label: "ת\"א בנקים-5", value: 164 },
+    { label: "ת\"א גלובל-בלוטק", value: 145 },
+    { label: "ת\"א טכנולוגיה 35", value: 209 },
+    { label: "ת\"א טק-עילית", value: 173 },
+    { label: "ת\"א נדל\"ן 35", value: 208 },
+    { label: "ת\"א נדלן", value: 149 },
+    { label: "ת\"א סקטור-באלאנס", value: 177 },
+    { label: "ת\"א פמילי", value: 179 },
+    { label: "ת\"א תעשייה", value: 178 },
+    { label: "ת\"א תקשורת וטכנולוגיות מידע", value: 172 },
+    { label: "ת\"א תשתיות", value: 206 },
+    { label: "ת\"א-125", value: 137 },
+    { label: "ת\"א-125 אקלים נקי מדלקים", value: 185 },
+    { label: "ת\"א-125 ערך", value: 195 },
+    { label: "ת\"א-125EW", value: 189 },
+    { label: "ת\"א-20", value: 197 },
+    { label: "ת\"א-200", value: 199 },
+    { label: "ת\"א-35", value: 142 },
+    { label: "ת\"א-35 דולר", value: 174 },
+    { label: "ת\"א-90", value: 143 },
+    { label: "ת\"א-MidCap-150", value: 176 },
+    { label: "ת\"א-אנרגיה ישראל", value: 210 },
+    { label: "ת\"א-ביומד", value: 167 },
+    { label: "ת\"א-ביטוח ושירותים פיננסיים", value: 171 },
+    { label: "ת\"א-בנייה", value: 181 },
+    { label: "ת\"א-בנקים", value: 194 },
+    { label: "ת\"א-דואליות", value: 187 },
+    { label: "ת\"א-טכנולוגיה", value: 169 },
+    { label: "ת\"א-מניב חו\"ל", value: 183 },
+    { label: "ת\"א-מניב ישראל", value: 182 },
+    { label: "ת\"א-מעלה", value: 150 },
+    { label: "ת\"א-נפט וגז", value: 170 },
+    { label: "ת\"א-פיננסים", value: 148 },
+    { label: "ת\"א-צמיחה", value: 163 },
+    { label: "ת\"א-קלינטק", value: 184 },
+    { label: "ת\"א-רימון", value: 175 },
+    { label: "ת\"א-רשתות שיווק", value: 188 },
+    { label: "ת\"א-תשתיות אנרגיה", value: 180 },
+    { label: "תל בונד 100 צמודות", value: 743 },
+    { label: "תל בונד 125 ערך צמוד", value: 753 },
+    { label: "תל בונד 125 ערך שקלי", value: 752 },
+    { label: "תל בונד 20", value: 707 },
+    { label: "תל בונד 40", value: 708 },
+    { label: "תל בונד 60", value: 709 },
+    { label: "תל בונד בולט 2029 ישראל", value: 762 },
+    { label: "תל בונד בולט 2029 שקלי", value: 760 },
+    { label: "תל בונד בולט צמוד 10/2028", value: 761 },
+    { label: "תל בונד דולר", value: 739 },
+    { label: "תל בונד לא צמודות AAA", value: 757 },
+    { label: "תל בונד צמודות", value: 711 },
+    { label: "תל בונד צמודות 5-10", value: 749 },
+    { label: "תל בונד צמודות A", value: 735 },
+    { label: "תל בונד צמודות AAA", value: 756 },
+    { label: "תל בונד צמודות AAA-AA", value: 736 },
+    { label: "תל בונד צמודות בנקים", value: 747 },
+    { label: "תל בונד צמודות בנקים וחברות ממשלתיות", value: 750 },
+    { label: "תל בונד צמודות דירוג כפול", value: 758 },
+    { label: "תל בונד צמודות-בנקים ללא קוקו", value: 713 },
+    { label: "תל בונד צמודות-יתר", value: 712 },
+    { label: "תל בונד צמודות-נדל\"ן", value: 734 },
+    { label: "תל בונד קוקו +A", value: 744 },
+    { label: "תל בונד שקלי 100", value: 742 },
+    { label: "תל בונד שקלי 5-10", value: 748 },
+    { label: "תל בונד שקלי 60", value: 765 },
+    { label: "תל בונד שקלי-בנקים וביטוח", value: 733 },
+    { label: "תל בונד תשואות צמודות-פיזור רחב", value: 745 },
+    { label: "תל בונד תשואות שקלי-פיזור רחב", value: 746 },
+    { label: "תל בונד-גלובל", value: 719 },
+    { label: "תל בונד-לא צמודות", value: 717 },
+    { label: "תל בונד-מאגר", value: 715 },
+    { label: "תל בונד-צמודות 15-5", value: 723 },
+    { label: "תל בונד-צמודות 3-1", value: 721 },
+    { label: "תל בונד-צמודות 5-3", value: 722 },
+    { label: "תל בונד-צמודות מעלה", value: 731 },
+    { label: "תל בונד-שקלי", value: 710 },
+    { label: "תל בונד-שקלי 15-5", value: 726 },
+    { label: "תל בונד-שקלי 3-1", value: 724 },
+    { label: "תל בונד-שקלי 5-3", value: 725 },
+    { label: "תל בונד-שקלי A", value: 737 },
+    { label: "תל בונד-שקלי AAA-AA", value: 738 },
+    { label: "תל בונד-שקלי מעלה", value: 732 },
+    { label: "תל בונד-שקלי-50", value: 720 },
+    { label: "תל בונד-תשואות צמודות", value: 714 },
+    { label: "תל בונד-תשואות שקלי", value: 718 },
+    { label: "תל גוב-כללי", value: 602 },
+    { label: "תל גוב-לא צמודות", value: 690 },
+    { label: "תל גוב-מק\"מ", value: 800 },
+    { label: "תל גוב-משתנה", value: 701 },
+    { label: "תל גוב-צמודות", value: 605 },
+    { label: "תל גוב-צמודות +51", value: 694 },
+    { label: "תל גוב-צמודות 0-2", value: 637 },
+    { label: "תל גוב-צמודות 10+", value: 728 },
+    { label: "תל גוב-צמודות 2-5", value: 646 },
+    { label: "תל גוב-צמודות 5+", value: 727 },
+    { label: "תל גוב-צמודות 5-10", value: 658 },
+    { label: "תל גוב-שקלי", value: 700 },
+    { label: "תל גוב-שקלי 0-2", value: 702 },
+    { label: "תל גוב-שקלי 10+", value: 730 },
+    { label: "תל גוב-שקלי 2-5", value: 703 },
+    { label: "תל גוב-שקלי 5+", value: 704 },
+    { label: "תל גוב-שקלי 5-10", value: 729 },
+    { label: "תל דיב אריסטוקרט", value: 200 },
+    { label: "תל-בונד נע\"מ", value: 763 },
+    { label: "תל-דיב", value: 166 }
+  ];
+
+  const [value, setValue] = useState(null);
+  const [isFocus, setIsFocus] = useState(false);
+
+  const TIMEFRAMES = ["1D", "1W", "1M"] as const;
+  type Timeframe = (typeof TIMEFRAMES)[number];
 
   return (
      <View style={styles.container}>
@@ -86,7 +236,37 @@ export default function Index() {
               isAnimated
           />
       </ComponentWrapper>
-      <Text style={styles.defaultText}>Edit app/index.tsx to edit this screen.</Text>
+
+      <Dropdown
+          style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+          placeholderStyle={styles.placeholderStyle}
+          selectedTextStyle={styles.selectedTextStyle}
+          inputSearchStyle={styles.inputSearchStyle}
+          iconStyle={styles.iconStyle}
+          data={data}
+          search
+          maxHeight={200}
+          labelField="label"
+          valueField="value"
+          placeholder={!isFocus ? 'Select item' : '...'}
+          searchPlaceholder="Search..."
+          value={value}
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
+          onChange={item => {
+            setValue(item.value);
+            setIsFocus(false);
+          }}
+          renderLeftIcon={() => (
+            <AntDesign
+              style={styles.icon}
+              color={isFocus ? 'blue' : 'black'}
+              size={20}
+            />
+          )}
+        />
+
+      
     </View>
   );
 }
@@ -146,5 +326,35 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "flex-start",
     gap: 8,
+  },
+  dropdown: {
+    height: 50,
+    borderColor: 'gray',
+    borderWidth: 0.5,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+    marginHorizontal: Layout.marginMobile,
+    marginTop: Layout.marginMobile,
+    color: Colors.onSurface
+  },
+  placeholderStyle: {
+    fontSize: 16,
+    color: Colors.onSurface
+  },
+  selectedTextStyle: {
+    fontSize: 16,
+    color: Colors.onSurface
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
+  inputSearchStyle: {
+    height: 40,
+    fontSize: 16,
+    color: Colors.onSurface
+  },
+  icon: {
+    marginRight: 5,
   },
 });
