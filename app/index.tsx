@@ -5,13 +5,15 @@ import { Colors } from "@/constants/Colors";
 import { Layout } from "@/constants/Layout";
 import { FontFamily, Typography } from "@/constants/Typography";
 import AntDesign from '@expo/vector-icons/AntDesign';
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
-import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import { Pressable, StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import { Dropdown } from 'react-native-element-dropdown';
 import { ScrollView } from "react-native-gesture-handler";
 import { LineChart } from "react-native-gifted-charts";
 
 export default function Index() {
+  const router = useRouter();
   const [activeTimeframe, setActiveTimeframe] = useState<Timeframe>("1D");
   const { width: screenWidth } = useWindowDimensions();
   const wrapperMarginHorizontal = Layout.marginMobile;
@@ -186,16 +188,16 @@ export default function Index() {
   ];
 
   const israeliStocks = [
-    { name: "Elbit Systems", currentPrice: 226420.0, change: 0.94 },
-    { name: "Azrieli", currentPrice: 48060.0, change: -1.05 },
-    { name: "Israel Discount Bank", currentPrice: 3069.0, change: -3.79 },
-    { name: "Harel", currentPrice: 19460.0, change: -1.67 },
-    { name: "FIBI Holdings", currentPrice: 24300.0, change: -2.21 },
-    { name: "Bezeq The Israel", currentPrice: 776.6, change: -1.61 },
-    { name: "Newmed Energy Lp", currentPrice: 1780.0, change: 0 },
-    { name: "Delek", currentPrice: 96000.0, change: 2.62 },
-    { name: "Big Shopping", currentPrice: 78240.0, change: -1.73 },
-    { name: "Clal Insurance", currentPrice: 28480.0, change: 2.08 }
+    { id: "elbit-systems", name: "Elbit Systems", currentPrice: 226420.0, change: 0.94 },
+    { id: "azrieli", name: "Azrieli", currentPrice: 48060.0, change: -1.05 },
+    { id: "israel-discount-bank", name: "Israel Discount Bank", currentPrice: 3069.0, change: -3.79 },
+    { id: "harel", name: "Harel", currentPrice: 19460.0, change: -1.67 },
+    { id: "fibi-holdings", name: "FIBI Holdings", currentPrice: 24300.0, change: -2.21 },
+    { id: "bezeq-the-israel", name: "Bezeq The Israel", currentPrice: 776.6, change: -1.61 },
+    { id: "newmed-energy-lp", name: "Newmed Energy Lp", currentPrice: 1780.0, change: 0 },
+    { id: "delek", name: "Delek", currentPrice: 96000.0, change: 2.62 },
+    { id: "big-shopping", name: "Big Shopping", currentPrice: 78240.0, change: -1.73 },
+    { id: "clal-insurance", name: "Clal Insurance", currentPrice: 28480.0, change: 2.08 }
   ];
 
   const [value, setValue] = useState(null);
@@ -303,27 +305,44 @@ export default function Index() {
       </ComponentWrapper>
 
       {israeliStocks.map((stock) => (
-        <ComponentWrapper key={stock.name} style={styles.stockLineCard}>
-          <View style={styles.stockLineRow}>
-            <Text style={[styles.stockLineCell, styles.stockNameCell]} numberOfLines={1}>
-              {stock.name}
-            </Text>
-            <Text style={[styles.stockLineCell, styles.stockMiddleCell]} numberOfLines={1}>
-              ₪{stock.currentPrice.toLocaleString("en-US")}
-            </Text>
-            <Text
-              style={[
-                styles.stockLineCell,
-                styles.stockValueCell,
-                stock.change >= 0 ? styles.stockChangePositive : styles.stockChangeNegative,
-              ]}
-              numberOfLines={1}
-            >
-              {stock.change >= 0 ? "+" : ""}
-              {stock.change.toFixed(2)}%
-            </Text>
-          </View>
-        </ComponentWrapper>
+        <Pressable
+          key={stock.id}
+          onPress={() =>
+            router.push({
+              pathname: "/stock-details",
+              params: {
+                id: stock.id,
+                name: stock.name,
+                currentPrice: String(stock.currentPrice),
+                change: String(stock.change),
+              },
+            })
+          }
+          accessibilityRole="button"
+          accessibilityLabel={`Open details for ${stock.name}`}
+        >
+          <ComponentWrapper style={styles.stockLineCard}>
+            <View style={styles.stockLineRow}>
+              <Text style={[styles.stockLineCell, styles.stockNameCell]} numberOfLines={1}>
+                {stock.name}
+              </Text>
+              <Text style={[styles.stockLineCell, styles.stockMiddleCell]} numberOfLines={1}>
+                ₪{stock.currentPrice.toLocaleString("en-US")}
+              </Text>
+              <Text
+                style={[
+                  styles.stockLineCell,
+                  styles.stockValueCell,
+                  stock.change >= 0 ? styles.stockChangePositive : styles.stockChangeNegative,
+                ]}
+                numberOfLines={1}
+              >
+                {stock.change >= 0 ? "+" : ""}
+                {stock.change.toFixed(2)}%
+              </Text>
+            </View>
+          </ComponentWrapper>
+        </Pressable>
       ))}
       
     </ScrollView>

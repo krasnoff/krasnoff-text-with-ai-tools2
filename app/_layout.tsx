@@ -90,6 +90,13 @@ export default function RootLayout() {
             title: "Second Page",
           }}
         />
+        <Drawer.Screen
+          name="stock-details"
+          options={{
+            drawerLabel: "Stock Details",
+            title: "Stock Details",
+          }}
+        />
       </Drawer>
     </>
   );
