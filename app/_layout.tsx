@@ -67,9 +67,11 @@ export default function RootLayout() {
           },
           sceneStyle: {
             backgroundColor: Colors.background,
+            direction: "ltr",
           },
           drawerStyle: {
             backgroundColor: Colors.background,
+            direction: "ltr",
           },
           drawerActiveTintColor: Colors.primary,
           drawerInactiveTintColor: Colors.onSurface,
