@@ -93,8 +93,8 @@ export default function RootLayout() {
         <Drawer.Screen
           name="stock-details"
           options={{
-            drawerLabel: "Stock Details",
             title: "Stock Details",
+            drawerItemStyle: { display: "none" },
           }}
         />
       </Drawer>
