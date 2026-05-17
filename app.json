@@ -1,20 +1,21 @@
 {
   "expo": {
-    "name": "text-with-ai-tools2",
-    "slug": "text-with-ai-tools2",
+    "name": "Sample Stock App",
+    "slug": "sample-stock-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "textwithaitools2",
+    "scheme": "sampleStockApp",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.krasnoff.testwithaitools"
     },
     "android": {
       "package": "com.krasnoff.testwithaitools",
       "supportsRTL": false,
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#131313",
         "foregroundImage": "./assets/images/icon.png",
         "backgroundImage": "./assets/images/icon.png",
         "monochromeImage": "./assets/images/icon.png"
@@ -30,12 +31,12 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
+          "image": "./assets/images/splash.png",
+          "imageWidth": 300,
           "backgroundColor": "#131313",
           "dark": {
-            "backgroundColor": "#131313"
+            "backgroundColor": "#131313",
+            "image": "./assets/images/splash.png"
           }
         }
       ],
