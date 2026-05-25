@@ -1,7 +1,7 @@
 import { Colors } from "@/constants/Colors";
 import { FontFamily } from "@/constants/Typography";
 import useFonts from "@/hooks/useFonts";
-import { DrawerToggleButton } from "@react-navigation/drawer";
+import { DrawerToggleButton } from "expo-router/build/react-navigation/drawer";
 import { Drawer } from "expo-router/drawer";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
